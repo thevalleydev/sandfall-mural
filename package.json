@@ -1,0 +1,21 @@
+{
+  "name": "sandfall-mural",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sand-physics pixel-sort puzzle for the web (prototype)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host --port 5180 --strictPort",
+    "build": "tsc && vite build",
+    "typecheck": "tsc",
+    "preview": "vite preview --host --port 5181 --strictPort",
+    "test": "vitest run",
+    "balance": "vitest run --config vitest.balance.config.ts scripts/balance.test.ts",
+    "par": "vitest run --config vitest.balance.config.ts scripts/par.test.ts"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.7",
+    "vitest": "^5.1.0"
+  }
+}

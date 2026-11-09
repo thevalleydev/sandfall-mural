@@ -1,0 +1,122 @@
+{
+  "First Light|line": {
+    "par": 94.2,
+    "fingerprint": "8fif0n"
+  },
+  "First Light|exposed": {
+    "par": 95.9,
+    "fingerprint": "rtfms1"
+  },
+  "First Light|top": {
+    "par": 75.6,
+    "fingerprint": "zata60"
+  },
+  "Sunset|line": {
+    "par": 92.7,
+    "fingerprint": "1cqwf85"
+  },
+  "Sunset|exposed": {
+    "par": 94.9,
+    "fingerprint": "1bi2knz"
+  },
+  "Sunset|top": {
+    "par": 74.9,
+    "fingerprint": "33iw8y"
+  },
+  "Tricolour|line": {
+    "par": 85.4,
+    "fingerprint": "11nujb"
+  },
+  "Tricolour|exposed": {
+    "par": 79.5,
+    "fingerprint": "skl3j5"
+  },
+  "Tricolour|top": {
+    "par": 45.6,
+    "fingerprint": "1g83sx4"
+  },
+  "Mushroom|line": {
+    "par": 74.8,
+    "fingerprint": "1cusntx"
+  },
+  "Mushroom|exposed": {
+    "par": 88.2,
+    "fingerprint": "1dx84hb"
+  },
+  "Mushroom|top": {
+    "par": 53.9,
+    "fingerprint": "1sr6f8y"
+  },
+  "Heart|line": {
+    "par": 97,
+    "fingerprint": "1emw2av"
+  },
+  "Heart|exposed": {
+    "par": 99.2,
+    "fingerprint": "r9b3jl"
+  },
+  "Heart|top": {
+    "par": 68.8,
+    "fingerprint": "1li466w"
+  },
+  "Pillars|line": {
+    "par": 84.9,
+    "fingerprint": "1ohsvr8"
+  },
+  "Pillars|exposed": {
+    "par": 92.5,
+    "fingerprint": "c8mbx4"
+  },
+  "Pillars|top": {
+    "par": 82,
+    "fingerprint": "1phfxgt"
+  },
+  "Fish|line": {
+    "par": 89.3,
+    "fingerprint": "hj9a9"
+  },
+  "Fish|exposed": {
+    "par": 98.2,
+    "fingerprint": "11yo6ij"
+  },
+  "Fish|top": {
+    "par": 77.5,
+    "fingerprint": "ptue9q"
+  },
+  "Landslide|line": {
+    "par": 80,
+    "fingerprint": "1xiv2hn"
+  },
+  "Landslide|exposed": {
+    "par": 92.7,
+    "fingerprint": "1rpbh2d"
+  },
+  "Landslide|top": {
+    "par": 74.5,
+    "fingerprint": "lgv3do"
+  },
+  "Tree|line": {
+    "par": 87,
+    "fingerprint": "1pr0mtv"
+  },
+  "Tree|exposed": {
+    "par": 96.8,
+    "fingerprint": "1ggkkfx"
+  },
+  "Tree|top": {
+    "par": 71.4,
+    "fingerprint": "15d58kk"
+  },
+  "Rainbow|line": {
+    "par": 34,
+    "fingerprint": "168qn0c"
+  },
+  "Rainbow|exposed": {
+    "par": 59.7,
+    "fingerprint": "w9kkuo"
+  },
+  "Rainbow|top": {
+    "par": 30,
+    "fingerprint": "1896gs5"
+  }
+}
