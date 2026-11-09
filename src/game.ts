@@ -82,8 +82,9 @@ export class Game {
   version = 0;
   private stuckCheckedAt = -1;
 
-  constructor(def: LevelDef, rule: Rule) {
-    const built = buildLevel(def);
+  /** `seed` overrides the level's default collector deal (see buildLevel); the Daily Mural uses it. */
+  constructor(def: LevelDef, rule: Rule, seed?: number) {
+    const built = buildLevel(def, seed);
     this.def = def;
     this.rule = rule;
     this.grid = built.grid;

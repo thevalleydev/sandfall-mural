@@ -48,13 +48,17 @@ select {
 
 #topbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  padding: 8px 0;
+  padding: 8px 0 4px;
 }
 
+/* The title gets its own centered line under the buttons, so it never gets squeezed. */
 #level-title {
-  flex: 1;
+  order: 1;
+  flex-basis: 100%;
+  text-align: center;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
@@ -72,11 +76,17 @@ select {
 }
 
 #rule-select {
+  margin-left: auto;
   height: 40px;
   border: 0;
   border-radius: 10px;
   background: var(--panel);
   padding: 0 8px;
+}
+
+/* Locked during a daily: every daily uses the same rule. */
+#rule-select:disabled {
+  opacity: 0.6;
 }
 
 #stage {
@@ -489,4 +499,49 @@ textarea {
   .chip.hint {
     animation: none;
   }
+}
+
+/* --- Daily Mural --- */
+
+.daily-btn {
+  width: 100%;
+  text-align: left;
+  border: 2px solid var(--accent);
+}
+
+.daily-btn .done {
+  float: right;
+  color: var(--accent);
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.day {
+  padding: 6px 0;
+  border-radius: 8px;
+  background: var(--panel-2);
+  font-size: 11px;
+}
+
+.day.today {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.day-label {
+  color: var(--muted);
+}
+
+.day-mark {
+  margin-top: 2px;
+  color: var(--muted);
+  letter-spacing: -1px;
+}
+
+.day-mark.won {
+  color: var(--accent);
 }

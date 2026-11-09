@@ -11,7 +11,8 @@
     "preview": "vite preview --host --port 5181 --strictPort",
     "test": "vitest run",
     "balance": "vitest run --config vitest.balance.config.ts scripts/balance.test.ts",
-    "par": "vitest run --config vitest.balance.config.ts scripts/par.test.ts"
+    "par": "vitest run --config vitest.balance.config.ts scripts/par.test.ts",
+    "dailies": "vitest run --config vitest.balance.config.ts scripts/dailies.test.ts"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

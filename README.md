@@ -20,6 +20,7 @@ Other commands:
 | `npm test` | Unit tests, plus a bot that checks every level is winnable under every rule |
 | `npm run balance` | Writes `scripts/balance-report.md`: greedy, planner and random bots per level and rule (a few minutes) |
 | `npm run par` | Regenerates `src/par.json` (~40 s). Run after changing levels or `src/config.ts` (a unit test fails until you do), and bump `SCORING_VERSION` in `src/par.ts` first if you change the bots or the scoring |
+| `npm run dailies` | Regenerates `src/dailies.json`: par for the next 45 Daily Murals (~15 s). The deploy workflow also runs it on every deploy and weekly |
 | `npm run typecheck` | TypeScript only |
 | `npm run build` | Production build into `dist/` |
 
@@ -70,6 +71,44 @@ Human playtesting should confirm or overturn this. If Line or Exposed feels bett
   - stars pop in one by one on the results card
 - **Reduced motion:** the confetti, bursts and animations are skipped when the device's "reduce motion" setting is on.
 
+## Daily Mural
+
+One puzzle per day, the same for everyone, so shared results compare directly. Open it with the 📅 button, from the top of the ☰ menu, or with `?daily` in the URL.
+
+- **The date decides the puzzle.** It picks a picture and seeds a fresh collector deal, so a familiar picture is still a new puzzle. The number counts from Daily #1 on 2026-11-09, and "today" is the player's local date, like Wordle.
+- **Difficulty follows the week:** easy pictures Mon–Tue, medium Wed–Thu, hard Fri–Sun (tiers in `src/daily.ts`).
+- **One rule:** every daily uses `DAILY_RULE` in `src/daily.ts`, currently **Top only**. Change it once the playtest picks a winner, then run `npm run dailies`. The rule picker is locked during a daily.
+- **Your daily score is your first win.** Losses before it count as attempts ("solved on try 2"), and replays afterwards are practice and don't change the score.
+- **Streaks** count consecutive days with a win. A streak survives until the day ends, so it isn't lost just because you haven't played yet today. The results card shows the streak, your best and a Monday–Sunday strip of the week.
+- **Share** posts the day's official result with a link to that exact daily (`?daily=YYYY-MM-DD`). Friends who open it later still get the same puzzle, though only today's daily counts toward streaks, and future dates aren't playable.
+- **Every daily is proven winnable.** `npm run dailies` precomputes par for the next 45 days into `src/dailies.json`. A date's deal is only used once a bot has won it; otherwise the next deal for that date is tried, and the table records which one was used.
+- **Kept fresh automatically:** the deploy workflow regenerates the table on every deploy and on a weekly schedule (Mondays), so the dailies never run out.
+
+## Telemetry
+
+To know whether the game is being played, the site can report anonymous events to **GoatCounter** or **Umami**. Both are free, cookie-free and don't need a consent banner.
+
+- **Off by default.** Nothing is sent until you configure a provider, never from local dev, and never for players with Do Not Track or Global Privacy Control on. No personal data is collected.
+- **What's tracked:**
+  - page visits, counted by the provider itself
+  - `level_start`: mode (daily/ladder), level number and rule
+  - `level_end`: the same plus result, stars, efficiency, re-sends and seconds; for dailies also whether it was the official score, the attempt number and the streak
+  - `share`: whether the share sheet or the clipboard was used
+  - `mute`
+- **GoatCounter has no event properties,** so the main ones are folded into the event path, e.g. `level_end/daily/3/top/won/2`. Umami keeps them as proper properties you can filter on.
+
+**To turn it on:**
+1. Create a site at [goatcounter.com](https://www.goatcounter.com) (your site code is the subdomain, e.g. `sandfall`) or at [Umami Cloud](https://cloud.umami.is) (copy the website ID).
+2. In the GitHub repo, go to **Settings → Secrets and variables → Actions → Variables** and add `ANALYTICS_PROVIDER` (`goatcounter` or `umami`) and `ANALYTICS_ID` (the site code or website ID).
+3. Re-run the deploy workflow, or push anything. The IDs are public by nature (they appear in the page), so variables rather than secrets are fine.
+
+**Is it being played?** Watch these numbers in the dashboard:
+- daily visitors
+- `level_start` ÷ visitors: do people start playing?
+- `level_end` won ÷ `level_start`: do they finish?
+- daily `level_end` with official=true per day, and the streak values: do they come back?
+- `share` counts: do they spread it?
+
 ## Playtest procedure
 
 1. Have each tester type a name in **☰ → Tester name**.
@@ -98,6 +137,8 @@ The CSV records result, time, moves, re-sends, efficiency, par efficiency, stars
 | `src/share.ts` | Share text and emoji moves summary |
 | `src/history-chart.ts` | Recent-clears chart on the results card |
 | `src/audio.ts` | Synthesized sound effects |
+| `src/daily.ts`, `src/daily-results.ts` | Daily Mural selection and par; daily results and streaks |
+| `src/telemetry.ts` | Optional, provider-neutral analytics events |
 | `src/render.ts` | Canvas rendering: sand at 1 px per grain scaled up, belt, collectors, particles, bursts, confetti |
 | `src/main.ts` | DOM UI, fixed 60 Hz game loop, menus |
 | `src/playtest.ts` | Local playtest log and CSV export |
@@ -109,8 +150,8 @@ The CSV records result, time, moves, re-sends, efficiency, par efficiency, stars
 
 ## Next (Phase 2, if the prototype is fun)
 
-- Level generator from PNGs, with a real solver instead of the greedy bot
-- 60 levels
-- Daily Mural, reusing the share text
+- Level generator from PNGs, with a real solver instead of the greedy bot, so every daily gets new art
+- 60 levels, then weekly packs
 - Replays and ghost runs from the recorded moves
+- Weekly Community Mural (needs a small backend)
 - Rewarded-ad hooks

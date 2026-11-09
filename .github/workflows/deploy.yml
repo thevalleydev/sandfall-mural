@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Weekly, so the Daily Mural par table always covers the next ~45 days.
+  schedule:
+    - cron: '17 6 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -25,8 +28,15 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Precompute upcoming Daily Murals
+        run: npm run dailies
       - run: npm test
-      - run: npm run build
+      - name: Build
+        run: npm run build
+        env:
+          # Telemetry is off unless these repository variables are set (Settings → Secrets and variables → Actions → Variables).
+          VITE_ANALYTICS_PROVIDER: ${{ vars.ANALYTICS_PROVIDER }}
+          VITE_ANALYTICS_ID: ${{ vars.ANALYTICS_ID }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

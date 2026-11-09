@@ -18,13 +18,16 @@ export interface BuiltLevel {
   lanes: Collector[][];
 }
 
-/** Turns level art into a sand grid and deals out collectors whose capacities exactly match the grain counts. */
-export function buildLevel(def: LevelDef): BuiltLevel {
+/**
+ * Turns level art into a sand grid and deals out collectors whose capacities exactly match the grain counts.
+ * The seed drives the collector deal and sand randomness; it defaults to one derived from the level name,
+ * and the Daily Mural passes a date-based seed to get a different puzzle from the same picture.
+ */
+export function buildLevel(def: LevelDef, seed = hashString(def.name)): BuiltLevel {
   const artH = def.art.length;
   const artW = def.art[0]?.length ?? 0;
   if (artW === 0) throw new Error(`Level "${def.name}" has no art`);
 
-  const seed = hashString(def.name);
   const rng = mulberry32(seed ^ 0x9e3779b9);
   const grid = new SandGrid(artW * def.scale, artH * def.scale, seed);
   const palette = [''];

@@ -34,6 +34,34 @@ export function resendText(n: number): string {
   return n === 0 ? 'no re-sends' : `${n} re-send${n === 1 ? '' : 's'}`;
 }
 
+export interface DailyShareInfo {
+  number: number;
+  weekday: string;
+  stars: Stars;
+  efficiency: number;
+  par: number;
+  resends: number;
+  seconds: number;
+  /** Attempt the daily was won on (1 = first try). */
+  attempts: number;
+  streak: number;
+  movesLine: string;
+  /** Link that opens this exact daily. */
+  url: string;
+}
+
+/** Daily Mural share text: same day, same puzzle for everyone, so results compare directly. */
+export function dailyShareText(s: DailyShareInfo): string {
+  const extras = [s.streak > 1 && `🔥 ${s.streak}-day streak`, s.attempts > 1 && `solved on try ${s.attempts}`].filter(Boolean);
+  return [
+    `Sandfall Mural Daily #${s.number} (${s.weekday})`,
+    `${starString(s.stars)} ${s.efficiency}% efficient (par ${s.par}%) · ${resendText(s.resends)} · ${Math.round(s.seconds)}s`,
+    ...(extras.length ? [extras.join(' · ')] : []),
+    s.movesLine,
+    `Play it: ${s.url}`,
+  ].join('\n');
+}
+
 /** Emoji colors (Twemoji approximations) for each square/circle pair. */
 const EMOJI: [hex: string, square: string, circle: string][] = [
   ['#dd2e44', '🟥', '🔴'],
