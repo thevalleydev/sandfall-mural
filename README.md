@@ -1,3 +1,5 @@
+> **Moved:** Sandfall Mural now lives in the studio monorepo and plays at https://thevalleydev.github.io/sandfall/. This repo is kept for history; its Pages site only forwards old links (including `?daily=` and `?level=`) to the new address.
+
 # Sandfall Mural (prototype)
 
 A portrait, one-thumb puzzle: each level is a pixel-art picture made of colored sand. Tap a collector to send it around the belt. It eats grains of its color, and the rest of the sand falls and settles. A collector that finishes its lap with capacity left parks in one of 5 slots. If a collector comes back and every slot is full, you lose.
