@@ -1,11 +1,11 @@
-name: Deploy to GitHub Pages
+name: Deploy redirect to GitHub Pages
+
+# Sandfall Mural now lives in the private studio monorepo and is served at
+# https://thevalleydev.github.io/sandfall/. This repo's Pages site only forwards old links there.
 
 on:
   push:
     branches: [main]
-  # Weekly, so the Daily Mural par table always covers the next ~45 days.
-  schedule:
-    - cron: '17 6 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -13,40 +13,20 @@ permissions:
   pages: write
   id-token: write
 
-# One deploy at a time; a newer push replaces a queued one.
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - name: Precompute upcoming Daily Murals
-        run: npm run dailies
-      - run: npm test
-      - name: Build
-        run: npm run build
-        env:
-          # Telemetry is off unless these repository variables are set (Settings → Secrets and variables → Actions → Variables).
-          VITE_ANALYTICS_PROVIDER: ${{ vars.ANALYTICS_PROVIDER }}
-          VITE_ANALYTICS_ID: ${{ vars.ANALYTICS_ID }}
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: redirect
       - id: deployment
         uses: actions/deploy-pages@v4
