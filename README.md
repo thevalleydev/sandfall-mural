@@ -1,4 +1,4 @@
-> **Moved:** Sandfall Mural now lives in the studio monorepo and plays at https://thevalleydev.github.io/sandfall/. This repo is kept for history; its Pages site only forwards old links (including `?daily=` and `?level=`) to the new address.
+> **Moved:** Sandfall Mural now lives in the studio monorepo and plays at https://tinkerfolk.app/sandfall/. This repo is kept for history; its Pages site only forwards old links (including `?daily=` and `?level=`) to the new address.
 
 # Sandfall Mural (prototype)
 

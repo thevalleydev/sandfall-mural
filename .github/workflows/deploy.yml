@@ -1,7 +1,7 @@
 name: Deploy redirect to GitHub Pages
 
 # Sandfall Mural now lives in the private studio monorepo and is served at
-# https://thevalleydev.github.io/sandfall/. This repo's Pages site only forwards old links there.
+# https://tinkerfolk.app/sandfall/. This repo's Pages site only forwards old links there.
 
 on:
   push:
